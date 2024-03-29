@@ -2,7 +2,9 @@
 - 👀 I’m interested in Web Development & CyberSecurity
 - 🌱 I’m currently learning MERN Stack
 - 💞️ I’m looking to collaborate on WEB projects
-- 📫 You can contact me on insta (https://www.instagram.com/pratikk_dungano)
+- 📫 You can contact me on
+  LinkedIn (https://www.linkedin.com/in/pratik-dungano-9a6892250/)
+  insta (https://www.instagram.com/pratikk_dungano)
 
 <!---
 Pratik-Dungano/Pratik-Dungano is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
