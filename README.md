@@ -4,7 +4,7 @@
 - 💞️ I’m looking to collaborate on WEB projects
 - 📫 You can contact me on -
 - LinkedIn (https://www.linkedin.com/in/pratik-dungano-9a6892250/)
-- insta (https://www.instagram.com/pratikk_dungano)
+- insta (https://www.instagram.com/pra__tiikk/)
 
 <!---
 Pratik-Dungano/Pratik-Dungano is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
