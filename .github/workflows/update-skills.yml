@@ -8,6 +8,8 @@ on:
 jobs:
   update-skills:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: 📥 Checkout Repository
