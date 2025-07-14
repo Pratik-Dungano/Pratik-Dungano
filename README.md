@@ -7,7 +7,7 @@
 - insta (https://www.instagram.com/pra__tiikk/)
 
 <!-- SKILLS-SECTION-START -->
-## 🛠️ Top Skills Based on GitHub Repos
+## 🛠️ Top Skills Worked on this week 
 
 <p align='left'>
   <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' title='JavaScript' width='40' height='40'/>
