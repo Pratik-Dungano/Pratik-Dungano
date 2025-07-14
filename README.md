@@ -1,3 +1,13 @@
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com/?lines=Welcome+to+my+GitHub!;💻+Code+and+Chill+🎶;&center=true&width=380&height=45&pause=1000&color=F75C7E&vCenter=true&size=22" />
+</p>
+<p align="center">
+  <a href="https://open.spotify.com/user/Pratik-Dungano" target="_blank">
+    <img src="https://spotify-readme-kappa.vercel.app/api/spotify" alt="Spotify Now Playing" width="350" />
+  </a>
+</p>
+
+
 - 👋 Hi, I’m @Pratik-Dungano
 - 👀 I’m interested in Web Development & CyberSecurity
 - 🌱 I’m currently learning MERN Stack
