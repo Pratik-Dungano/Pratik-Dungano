@@ -17,13 +17,11 @@ jobs:
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg
-          # dark mode customization
-          # we apply theme config for snake here
           palette: github-dark
-          color_snake: "#0000FF,#1E90FF,#87CEEB"
-          color_dots: "#0d1117,#161b22,#21262d,#30363d"
-          color_background: "#0d1117"
-
+          color_snake: "#FF0000"  # Solid Red snake
+          color_dots: "#161b22,#1f2933,#2d333b,#3a3f45"  # darker grayscale for GitHub dark theme
+          color_background: "#0d1117"  # GitHub dark mode background
+          
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v4
         with:
