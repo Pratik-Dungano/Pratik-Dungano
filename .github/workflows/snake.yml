@@ -2,30 +2,32 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *"  # Every day at midnight
   workflow_dispatch:
 
 jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout your repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Generate snake animation with custom neon colors
-        uses: Platane/snk@svg-only
-        with:
-          github_user_name: Pratik-Dungano
-          outputs: |
-            dist/github-contribution-grid-snake.svg
-          args: >
-            --color_snake "#00FFFF,#00BFFF,#00008B,#9400D3,#FFA500,#FF4500,#FF0000,#FF69B4,#00FFFF"
-            --color_dots "#ebedf0,#c6e48b,#7bc96f,#239a3b"
+      - name: Clone Platane's snk (svg-only branch)
+        run: git clone --depth=1 --branch=svg-only https://github.com/Platane/snk.git .snk
+
+      - name: Generate neon snake SVG with Docker
+        run: |
+          docker run -v ${{ github.workspace }}/.snk:/app -w /app ghcr.io/platane/snk:latest \
+            generate \
+            --github_user_name Pratik-Dungano \
+            --output dist/github-contribution-grid-snake.svg \
+            --color_snake "#00FFFF,#00BFFF,#00008B,#9400D3,#FFA500,#FF4500,#FF0000,#FF69B4,#00FFFF" \
+            --color_dots "#ebedf0,#c6e48b,#7bc96f,#239a3b" \
             --color_background transparent
 
-      - name: Push to output branch
+      - name: Deploy to GitHub Pages (output branch)
         uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: output
