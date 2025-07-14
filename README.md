@@ -3,7 +3,7 @@
 </p>
 <p align="center">
   <a href="https://open.spotify.com/user/Pratik-Dungano" target="_blank">
-    <img src="https://spotify-readme-kappa.vercel.app/api/spotify" alt="Spotify Now Playing" width="350" />
+    <img src="[https://spotify-readme-kappa.vercel.app/api/spotify](https://open.spotify.com/playlist/0w410MOLUyKPXzEyy2rWqf?si=K414dcLxQyKxdb7KXJY4jw)" alt="Spotify Now Playing" width="350" />
   </a>
 </p>
 
