@@ -4,7 +4,16 @@
   <a href="https://open.spotify.com/user/Pratik-Dungano" target="_blank">
     <img src="https://img.shields.io/badge/Spotify-Pratik--Dungano-1DB954?style=for-the-badge&logo=spotify&logoColor=white" alt="Spotify Badge"/>
   </a>
-  <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0w410MOLUyKPXzEyy2rWqf?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"/>
+</p>
+
+<p align="center">
+  🎵 Check out my playlist: <a href="https://open.spotify.com/playlist/0w410MOLUyKPXzEyy2rWqf" target="_blank">Code & Chill Playlist</a>
+</p>
+
+<p align="center">
+  <a href="https://open.spotify.com/playlist/0w410MOLUyKPXzEyy2rWqf" target="_blank">
+    <img src="https://mosaic.scdn.co/640/ab67616d00001e021379019f25a5f8439a58b4faab67616d00001e02c8f6e20d5cfbf68ec70e0e6cab67616d00001e02cd4c18f0bd5797b2ea2417d4ab67616d00001e02f56ef9a82f493e6ebcb1a560" alt="Spotify Playlist" width="400"/>
+  </a>
 </p>
 
 <p align="center">
