@@ -4,6 +4,7 @@
   <a href="https://open.spotify.com/user/Pratik-Dungano" target="_blank">
     <img src="https://img.shields.io/badge/Spotify-Pratik--Dungano-1DB954?style=for-the-badge&logo=spotify&logoColor=white" alt="Spotify Badge"/>
   </a>
+  <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0w410MOLUyKPXzEyy2rWqf?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 </p>
 
 <p align="center">
