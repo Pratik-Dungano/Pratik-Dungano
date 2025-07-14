@@ -1,11 +1,15 @@
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com/?lines=Welcome+to+my+GitHub!;💻+Code+and+Chill+🎶;&center=true&width=380&height=45&pause=1000&color=F75C7E&vCenter=true&size=22" />
-</p>
+<h2 align="center">💻 Code and Chill 🎶</h2>
+
 <p align="center">
   <a href="https://open.spotify.com/user/Pratik-Dungano" target="_blank">
-    <img src="[https://spotify-readme-kappa.vercel.app/api/spotify](https://open.spotify.com/playlist/0w410MOLUyKPXzEyy2rWqf?si=K414dcLxQyKxdb7KXJY4jw)" alt="Spotify Now Playing" width="350" />
+    <img src="https://img.shields.io/badge/Spotify-Pratik--Dungano-1DB954?style=for-the-badge&logo=spotify&logoColor=white" alt="Spotify Badge"/>
   </a>
 </p>
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?lines=Welcome+to+my+GitHub!;🎧+Follow+me+on+Spotify+for+Code+Vibes;&center=true&width=500&height=45&pause=1000" />
+</p>
+
 
 
 - 👋 Hi, I’m @Pratik-Dungano
