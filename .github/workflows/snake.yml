@@ -2,7 +2,7 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # every day at midnight
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -14,16 +14,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Generate smooth gradient neon snake with transparency
+      - name: Generate snake animation (neon with transparency)
         uses: Platane/snk@v3
         with:
           github_user_name: Pratik-Dungano
           outputs: |
-            dist/github-contribution-grid-snake.svg
-          args: >
-            --color_snake "#00FFFF,#00BFFF,#00008B,#9400D3,#FFA500,#FF4500,#FF0000,#FF69B4,#00FFFF"
-            --color_dots "#ebedf0,#c6e48b,#7bc96f,#239a3b"
-            --color_background "transparent"
+            dist/github-contribution-grid-snake.svg?color_snake=%2300FFFF,%2300BFFF,%2300008B,%239400D3,%23FFA500,%23FF4500,%23FF0000,%23FF69B4,%2300FFFF&color_dots=%23ebedf0,%23c6e48b,%237bc96f,%23239a3b&color_background=transparent
 
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v4
