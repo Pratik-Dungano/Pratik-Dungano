@@ -12,7 +12,6 @@ You can click the Preview link to take a look at your changes.
 --->
 # 👋 Hi there, I'm Pratik Dungano
 
-### 🐍 Watch the snake eat my contributions:
-
-![snake gif](https://github.com/Pratik-Dungano/Pratik-Dungano/blob/output/github-contribution-grid-snake.svg)
-
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Pratik-Dungano/Pratik-Dungano/output/github-contribution-grid-snake.svg" />
+</p>
