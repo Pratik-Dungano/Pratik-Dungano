@@ -10,8 +10,6 @@
 Pratik-Dungano/Pratik-Dungano is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
 --->
-# 👋 Hi there, I'm Pratik Dungano
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/Pratik-Dungano/Pratik-Dungano/output/github-contribution-grid-snake.svg" />
 </p>
