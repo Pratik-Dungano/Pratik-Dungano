@@ -65,26 +65,27 @@ def analyze(repos):
     top_langs = sorted(lang_count.items(), key=lambda x: x[1], reverse=True)[:8]
     return top_langs, sorted(all_langs), sorted(frameworks)
 
-def badge(icon):
-    return f"<img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/{icon}/{icon}-original.svg' width='40' height='40'/>"
+def badge(icon, label):
+    return f"<img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/{icon}/{icon}-original.svg' title='{label}' width='40' height='40'/>"
 
 def generate_md(top_langs, all_langs, frameworks):
-    md = "## 🛠️ Top Skills Based on GitHub Repos\n\n<p align='left'>\n"
+    md = "<!-- SKILLS-SECTION-START -->\n"
+    md += "## 🛠️ Top Skills Based on GitHub Repos\n\n<p align='left'>\n"
     for lang, _ in top_langs:
         if icon := lang_icon_map.get(lang):
-            md += f"  {badge(icon)}\n"
+            md += f"  {badge(icon, lang)}\n"
     for fw in frameworks:
-        md += f"  {badge(fw)}\n"
+        md += f"  {badge(fw, fw.capitalize())}\n"
     md += "</p>\n\n"
 
     md += "## 📋 All Technologies Used\n\n<p align='left'>\n"
     for lang in all_langs:
         if icon := lang_icon_map.get(lang):
-            md += f"  {badge(icon)}\n"
+            md += f"  {badge(icon, lang)}\n"
     for fw in frameworks:
-        md += f"  {badge(fw)}\n"
+        md += f"  {badge(fw, fw.capitalize())}\n"
     md += "</p>\n"
-
+    md += "<!-- SKILLS-SECTION-END -->"
     return md
 
 def update_readme(skills_md):
@@ -94,12 +95,17 @@ def update_readme(skills_md):
     except FileNotFoundError:
         content = "# 👋 Welcome to My Profile\n\n"
 
-    start_tag = "## 🛠️ Top Skills Based on GitHub Repos"
-    if start_tag in content:
-        pre = content.split(start_tag)[0].strip()
+    # Preserve anything before and after the skills section
+    pre, post = "", ""
+    if "<!-- SKILLS-SECTION-START -->" in content and "<!-- SKILLS-SECTION-END -->" in content:
+        pre = content.split("<!-- SKILLS-SECTION-START -->")[0].strip()
+        post = content.split("<!-- SKILLS-SECTION-END -->")[1].strip()
     else:
         pre = content.strip()
-    new_content = f"{pre}\n\n{skills_md}"
+        post = ""
+
+    # Combine parts
+    new_content = f"{pre}\n\n{skills_md}\n\n{post}".strip()
 
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(new_content)
