@@ -5,7 +5,6 @@ USERNAME = "Pratik-Dungano"
 BASE_URL = f"https://api.github.com/users/{USERNAME}/repos"
 HEADERS = {"Accept": "application/vnd.github+json"}
 
-# Framework and devicon mapping
 framework_keywords = {
     "react": "react",
     "node": "nodejs",
@@ -41,46 +40,59 @@ def get_all_repos():
     while True:
         res = requests.get(BASE_URL + f"?page={page}&per_page=100", headers=HEADERS)
         data = res.json()
-        if not data: break
+        if not data or "message" in data:
+            break
         repos.extend(data)
         page += 1
     return repos
 
 def analyze(repos):
     lang_count = defaultdict(int)
+    all_langs = set()
     frameworks = set()
 
     for repo in repos:
-        # Languages
-        lang_url = repo["languages_url"]
-        lang_data = requests.get(lang_url, headers=HEADERS).json()
+        lang_data = requests.get(repo["languages_url"], headers=HEADERS).json()
         for lang, bytes_used in lang_data.items():
             lang_count[lang] += bytes_used
+            all_langs.add(lang)
 
-        # Framework detection from description or name
-        description = (repo.get("description") or "") + repo.get("name", "")
+        text = f"{repo.get('description', '')} {repo.get('name', '')}".lower()
         for keyword, icon in framework_keywords.items():
-            if keyword.lower() in description.lower():
+            if keyword in text:
                 frameworks.add(icon)
 
     top_langs = sorted(lang_count.items(), key=lambda x: x[1], reverse=True)[:8]
-    return top_langs, sorted(frameworks)
+    return top_langs, sorted(all_langs), sorted(frameworks)
 
-def generate_md(langs, frameworks):
+def badge(icon):
+    return f"<img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/{icon}/{icon}-original.svg' width='40' height='40'/>"
+
+def generate_md(top_langs, all_langs, frameworks):
     md = "## 🛠️ Top Skills Based on GitHub Repos\n\n<p align='left'>\n"
-    for lang, _ in langs:
-        icon = lang_icon_map.get(lang)
-        if icon:
-            md += f"  <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/{icon}/{icon}-original.svg' alt='{lang}' width='40' height='40'/>\n"
-
+    for lang, _ in top_langs:
+        if icon := lang_icon_map.get(lang):
+            md += f"  {badge(icon)}\n"
     for fw in frameworks:
-        md += f"  <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/{fw}/{fw}-original.svg' alt='{fw}' width='40' height='40'/>\n"
+        md += f"  {badge(fw)}\n"
+    md += "</p>\n\n"
+
+    md += "## 📋 All Technologies Used\n\n<p align='left'>\n"
+    for lang in all_langs:
+        if icon := lang_icon_map.get(lang):
+            md += f"  {badge(icon)}\n"
+    for fw in frameworks:
+        md += f"  {badge(fw)}\n"
     md += "</p>\n"
+
     return md
 
 def update_readme(skills_md):
-    with open("README.md", "r", encoding="utf-8") as f:
-        content = f.read()
+    try:
+        with open("README.md", "r", encoding="utf-8") as f:
+            content = f.read()
+    except FileNotFoundError:
+        content = "# 👋 Welcome to My Profile\n\n"
 
     start_tag = "## 🛠️ Top Skills Based on GitHub Repos"
     if start_tag in content:
@@ -94,7 +106,9 @@ def update_readme(skills_md):
 
 if __name__ == "__main__":
     repos = get_all_repos()
-    langs, frameworks = analyze(repos)
-    md = generate_md(langs, frameworks)
+    if not repos:
+        raise Exception("Could not fetch repositories. Possibly hit GitHub rate limit.")
+    top_langs, all_langs, frameworks = analyze(repos)
+    md = generate_md(top_langs, all_langs, frameworks)
     update_readme(md)
-    print("README updated.")
+    print("README.md updated successfully.")
