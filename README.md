@@ -11,5 +11,8 @@ Pratik-Dungano/Pratik-Dungano is a ✨ special ✨ repository because its `READM
 You can click the Preview link to take a look at your changes.
 --->
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Pratik-Dungano/Pratik-Dungano/output/github-contribution-grid-snake.svg" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Pratik-Dungano/Pratik-Dungano/output/github-contribution-grid-snake-dark.svg" />
+    <img alt="snake gif" src="https://raw.githubusercontent.com/Pratik-Dungano/Pratik-Dungano/output/github-contribution-grid-snake.svg" />
+  </picture>
 </p>
