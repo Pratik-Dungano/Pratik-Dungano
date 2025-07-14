@@ -14,12 +14,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Generate snake animation
+      - name: Generate snake animation with neon gradient and transparent background
         uses: Platane/snk@v3
         with:
           github_user_name: Pratik-Dungano
           outputs: |
-            dist/github-contribution-grid-snake.svg?color_snake=%2300BFFF,%2300008B,%23FFA500,%23FF0000&color_dots=%23444c56,%232f363d,%231c2128,%230d1117&color_background=%230d1117
+            dist/github-contribution-grid-snake.svg
+          args: >
+            --color_snake "#00FFFF,#00BFFF,#0000FF,#8A2BE2,#FF00FF,#FF1493,#FF4500,#FF0000,#00FFFF"
+            --color_dots "#d6e685,#8cc665,#44a340,#1e6823"
+            --color_background "transparent"
 
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v4
