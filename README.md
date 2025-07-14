@@ -20,7 +20,7 @@
   <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' title='Nextjs' width='40' height='40'/>
 </p>
 
-## 📋 All Technologies Used
+## 📋 All Skills 
 
 <p align='left'>
   <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' title='C' width='40' height='40'/>
