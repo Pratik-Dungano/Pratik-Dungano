@@ -39,8 +39,10 @@ def get_all_repos():
     repos, page = [], 1
     while True:
         res = requests.get(BASE_URL + f"?page={page}&per_page=100", headers=HEADERS)
+        if res.status_code != 200:
+            raise Exception(f"❌ GitHub API error: {res.status_code} - {res.json().get('message')}")
         data = res.json()
-        if not data or "message" in data:
+        if not data:
             break
         repos.extend(data)
         page += 1
@@ -52,15 +54,18 @@ def analyze(repos):
     frameworks = set()
 
     for repo in repos:
-        lang_data = requests.get(repo["languages_url"], headers=HEADERS).json()
-        for lang, bytes_used in lang_data.items():
-            lang_count[lang] += bytes_used
-            all_langs.add(lang)
+        try:
+            lang_data = requests.get(repo["languages_url"], headers=HEADERS).json()
+            for lang, bytes_used in lang_data.items():
+                lang_count[lang] += bytes_used
+                all_langs.add(lang)
 
-        text = f"{repo.get('description', '')} {repo.get('name', '')}".lower()
-        for keyword, icon in framework_keywords.items():
-            if keyword in text:
-                frameworks.add(icon)
+            text = f"{repo.get('description', '')} {repo.get('name', '')}".lower()
+            for keyword, icon in framework_keywords.items():
+                if keyword in text:
+                    frameworks.add(icon)
+        except Exception as e:
+            print(f"⚠️ Skipping repo: {repo.get('name', 'unknown')} due to error: {str(e)}")
 
     top_langs = sorted(lang_count.items(), key=lambda x: x[1], reverse=True)[:8]
     return top_langs, sorted(all_langs), sorted(frameworks)
@@ -93,9 +98,9 @@ def update_readme(skills_md):
         with open("README.md", "r", encoding="utf-8") as f:
             content = f.read()
     except FileNotFoundError:
-        content = "# 👋 Welcome to My Profile\n\n"
+        raise Exception("❌ README.md not found. Create one at the root of your repo.")
 
-    # Preserve anything before and after the skills section
+    # Preserve sections
     pre, post = "", ""
     if "<!-- SKILLS-SECTION-START -->" in content and "<!-- SKILLS-SECTION-END -->" in content:
         pre = content.split("<!-- SKILLS-SECTION-START -->")[0].strip()
@@ -104,17 +109,19 @@ def update_readme(skills_md):
         pre = content.strip()
         post = ""
 
-    # Combine parts
     new_content = f"{pre}\n\n{skills_md}\n\n{post}".strip()
-
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(new_content)
 
 if __name__ == "__main__":
-    repos = get_all_repos()
-    if not repos:
-        raise Exception("Could not fetch repositories. Possibly hit GitHub rate limit.")
-    top_langs, all_langs, frameworks = analyze(repos)
-    md = generate_md(top_langs, all_langs, frameworks)
-    update_readme(md)
-    print("README.md updated successfully.")
+    try:
+        repos = get_all_repos()
+        if not repos:
+            raise Exception("❌ No public repositories found.")
+        top_langs, all_langs, frameworks = analyze(repos)
+        md = generate_md(top_langs, all_langs, frameworks)
+        update_readme(md)
+        print("✅ README.md updated successfully.")
+    except Exception as e:
+        print(str(e))
+        exit(1)
