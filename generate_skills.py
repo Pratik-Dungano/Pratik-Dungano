@@ -1,5 +1,6 @@
 import requests
 from collections import defaultdict
+from datetime import datetime, timedelta
 
 USERNAME = "Pratik-Dungano"
 BASE_URL = f"https://api.github.com/users/{USERNAME}/repos"
@@ -17,21 +18,10 @@ framework_keywords = {
 }
 
 lang_icon_map = {
-    "JavaScript": "javascript",
-    "Python": "python",
-    "HTML": "html5",
-    "CSS": "css3",
-    "C++": "cplusplus",
-    "C": "c",
-    "TypeScript": "typescript",
-    "Java": "java",
-    "Shell": "bash",
-    "Go": "go",
-    "PHP": "php",
-    "Ruby": "ruby",
-    "Kotlin": "kotlin",
-    "Swift": "swift",
-    "Rust": "rust",
+    "JavaScript": "javascript", "Python": "python", "HTML": "html5",
+    "CSS": "css3", "C++": "cplusplus", "C": "c", "TypeScript": "typescript",
+    "Java": "java", "Shell": "bash", "Go": "go", "PHP": "php",
+    "Ruby": "ruby", "Kotlin": "kotlin", "Swift": "swift", "Rust": "rust",
     "Dart": "dart"
 }
 
@@ -73,9 +63,12 @@ def analyze(repos):
 def badge(icon, label):
     return f"<img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/{icon}/{icon}-original.svg' title='{label}' width='40' height='40'/>"
 
-def generate_md(top_langs, all_langs, frameworks):
+def generate_md(weekly, alltime):
     md = "<!-- SKILLS-SECTION-START -->\n"
-    md += "## 🛠️ Top Skills Based on GitHub Repos\n\n<p align='left'>\n"
+    
+    # Weekly Skills Section
+    top_langs, _, frameworks = weekly
+    md += "## 📆 Weekly Skills Worked On\n\n<p align='left'>\n"
     for lang, _ in top_langs:
         if icon := lang_icon_map.get(lang):
             md += f"  {badge(icon, lang)}\n"
@@ -83,13 +76,16 @@ def generate_md(top_langs, all_langs, frameworks):
         md += f"  {badge(fw, fw.capitalize())}\n"
     md += "</p>\n\n"
 
-    md += "## 📋 All Technologies Used\n\n<p align='left'>\n"
+    # All Time Skills Section
+    _, all_langs, frameworks_all = alltime
+    md += "## 📚 All Tech Skills Learned (All Repos)\n\n<p align='left'>\n"
     for lang in all_langs:
         if icon := lang_icon_map.get(lang):
             md += f"  {badge(icon, lang)}\n"
-    for fw in frameworks:
+    for fw in frameworks_all:
         md += f"  {badge(fw, fw.capitalize())}\n"
     md += "</p>\n"
+    
     md += "<!-- SKILLS-SECTION-END -->"
     return md
 
@@ -100,7 +96,6 @@ def update_readme(skills_md):
     except FileNotFoundError:
         raise Exception("❌ README.md not found. Create one at the root of your repo.")
 
-    # Preserve sections
     pre, post = "", ""
     if "<!-- SKILLS-SECTION-START -->" in content and "<!-- SKILLS-SECTION-END -->" in content:
         pre = content.split("<!-- SKILLS-SECTION-START -->")[0].strip()
@@ -113,15 +108,28 @@ def update_readme(skills_md):
     with open("README.md", "w", encoding="utf-8") as f:
         f.write(new_content)
 
+def filter_recent_repos(repos, days=7):
+    recent = []
+    threshold = datetime.utcnow() - timedelta(days=days)
+    for repo in repos:
+        updated = datetime.strptime(repo["updated_at"], "%Y-%m-%dT%H:%M:%SZ")
+        if updated > threshold:
+            recent.append(repo)
+    return recent
+
 if __name__ == "__main__":
     try:
         repos = get_all_repos()
         if not repos:
             raise Exception("❌ No public repositories found.")
-        top_langs, all_langs, frameworks = analyze(repos)
-        md = generate_md(top_langs, all_langs, frameworks)
+        
+        recent_repos = filter_recent_repos(repos, days=7)
+        weekly_data = analyze(recent_repos)
+        alltime_data = analyze(repos)
+
+        md = generate_md(weekly_data, alltime_data)
         update_readme(md)
-        print("✅ README.md updated successfully.")
+        print("✅ README.md updated with weekly and all-time skills.")
     except Exception as e:
         print(str(e))
         exit(1)
