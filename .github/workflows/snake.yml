@@ -2,7 +2,7 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *"  # Every day at midnight
   workflow_dispatch:
 
 jobs:
@@ -10,18 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate snake SVGs
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate snake SVGs (light green snake, dark bg, light grid)
         uses: Platane/snk/svg-only@v3
         with:
           github_user_name: Pratik-Dungano
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg
-          palette: github-dark
-          color_snake: "#FF0000"  # Solid Red snake
-          color_dots: "#161b22,#1f2933,#2d333b,#3a3f45"  # darker grayscale for GitHub dark theme
-          color_background: "#0d1117"  # GitHub dark mode background
-          
+          args: >
+            --palette github-dark
+            --color_snake "#7bc96f" 
+            --color_dots "#ebedf0,#c6e48b,#7bc96f,#239a3b" 
+            --color_background "#0d1117"
+
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v4
         with:
