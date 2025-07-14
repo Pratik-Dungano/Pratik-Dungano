@@ -8,25 +8,31 @@ on:
 jobs:
   update-skills:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repository
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: 🐍 Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.x
+          python-version: '3.x'
 
-      - name: Install Requests
+      - name: 📦 Install Dependencies
         run: pip install requests
 
-      - name: Run Skills Analysis
-        run: python update_skills.py
+      - name: 🧠 Run Skills Analysis
+        run: |
+          echo "Running update_skills.py..."
+          python update_skills.py || { echo "❌ Python script failed"; exit 2; }
 
-      - name: Commit and Push Changes
+      - name: 📄 Show README Diff
+        run: git diff README.md || true
+
+      - name: 📤 Commit and Push Changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "🛠️ Update weekly and all-time skills"
+          git diff --cached --quiet && echo "✅ No changes to commit" || git commit -m "🛠️ Update weekly and all-time skills"
           git push
