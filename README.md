@@ -7,7 +7,7 @@
 - insta (https://www.instagram.com/pra__tiikk/)
 
 <!-- SKILLS-SECTION-START -->
-## 📆 Weekly Skills Worked On
+## 📆 This Weekly Skills Worked On
 
 <p align='left'>
   <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' title='Python' width='40' height='40'/>
