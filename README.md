@@ -10,7 +10,6 @@
 ## 📆 Weekly Skills Worked On
 
 <p align='left'>
-  <img src='https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' title='Python' width='40' height='40'/>
 </p>
 
 ## 📚 All Tech Skills Learned (All Repos)
